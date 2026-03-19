@@ -19,7 +19,7 @@ This repository serves as the **Technical Case Study** and the central hub for b
 ---
 
 ### **Phase 1: The Next.js / TypeScript Build**
-**[View Source Code](https://github.com/iroussos25/aegis-ai-cds)** | **[Live Demo](https://aegis-ai-cds.vercel.app)**
+**[View Source Code](https://github.com/iroussos25/aegis_ai_cds)** | **[Live Demo](https://aegis-ai-cds.vercel.app)**
 
 The initial build focused on **Developer Velocity** and **Reactive UI**. 
 * **The "Win":** Leveraging Vercel’s global edge network allowed for an incredibly low **Time to First Token (TTFT)**. Even with complex RAG chains, the "perceived speed" for the clinician was nearly instantaneous.
