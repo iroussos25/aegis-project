@@ -26,7 +26,7 @@ The initial build focused on **Developer Velocity** and **Reactive UI**.
 * **The "Trade-off":** Managing state across serverless functions required meticulous coordination of the orchestration layer, though the ecosystem support for AI streaming is unparalleled.
 
 ### **Phase 2: The Rails 7 / Hotwire "Speed" Port**
-**[View Source Code](https://github.com/iroussos25/aegis-on-rails)** | **[Live Demo](https://aegis-on-rails.fly.dev)**
+**[View Source Code](https://github.com/iroussos25/ai-clin-cds-rails)** | **[Live Demo](https://ai-clin-cds-rails.fly.dev)**
 
 I re-engineered the platform in Ruby on Rails to see if a monolithic approach could reduce the "Serverless Tax" and simplify the AI orchestration logic.
 * **The "Win":** Achieved a **60% reduction in JavaScript payload** and a cleaner "single source of truth" for medical logic.
