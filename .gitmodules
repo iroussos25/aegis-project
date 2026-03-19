@@ -1,0 +1,6 @@
+[submodule "aegis_ai_cds"]
+	path = aegis_ai_cds
+	url = https://github.com/iroussos25/aegis_ai_cds
+[submodule "ai-clin-cds-rails"]
+	path = ai-clin-cds-rails
+	url = https://github.com/iroussos25/ai-clin-cds-rails
