@@ -11,12 +11,12 @@ Aegis AI is a dual-architecture benchmarking project designed to evaluate the pe
 ## 🏗️ The Benchmarking Strategy
 This root repository serves as the coordination point for two distinct implementations of the Aegis reasoning engine. The objective is to compare **Edge-Latency (Next.js)** against **Stateful Persistence (Rails)** in a high-acuity clinical context.
 
-### 1. [Aegis-AI-CDS (Next.js 14)](https://github.com/iroussos25/aegis-ai-cds)
+### 1. [Aegis-AI-CDS (Next.js 14)](https://github.com/iroussos25/aegis_ai_cds)
 * **Architectural Focus:** Edge-latency and frontend orchestration.
 * **Technical Driver:** Minimizes the "Time to First Token" (TTFT) by leveraging Vercel Edge Functions and a localized normalization layer.
 * **Best For:** Real-time bedside analysis and mobile-first clinical interfaces.
 
-### 2. [Aegis-on-Rails (Ruby on Rails 7)](https://github.com/iroussos25/aegis-on-rails)
+### 2. [Aegis-on-Rails (Ruby on Rails 7)](https://github.com/iroussos25/ai-cds-rails)
 * **Architectural Focus:** Data persistence and background synchronization.
 * **Technical Driver:** Utilizes a PostgreSQL backend and Sidekiq workers to manage longitudinal FHIR data syncing and a persistent audit trail.
 * **Best For:** Comprehensive patient history tracking and retrospective clinical auditing.
