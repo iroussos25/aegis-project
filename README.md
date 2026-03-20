@@ -16,7 +16,7 @@ This root repository serves as the coordination point for two distinct implement
 * **Technical Driver:** Minimizes the "Time to First Token" (TTFT) by leveraging Vercel Edge Functions and a localized normalization layer.
 * **Best For:** Real-time bedside analysis and mobile-first clinical interfaces.
 
-### 2. [Aegis-on-Rails (Ruby on Rails 7)](https://github.com/iroussos25/ai-cds-rails)
+### 2. [Aegis-on-Rails (Ruby on Rails 7)](https://github.com/iroussos25/ai-clin-cds-rails)
 * **Architectural Focus:** Data persistence and background synchronization.
 * **Technical Driver:** Utilizes a PostgreSQL backend and Sidekiq workers to manage longitudinal FHIR data syncing and a persistent audit trail.
 * **Best For:** Comprehensive patient history tracking and retrospective clinical auditing.
