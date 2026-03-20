@@ -47,4 +47,4 @@ The architectural frameworks, UI patterns, and benchmarking metrics provided in 
 ---
 
 ## ⚡ Engineering Note
-Aegis was architected using a high-velocity AI-orchestration workflow. By leveraging Claude 3.5 Opus to accelerate boilerplate and state logic, the system transitioned from initial concept to a deployed, multi-platform benchmark in under 6 hours.
+Aegis was architected using a high-velocity AI-orchestration workflow. By leveraging Claude 3.5 Opus to accelerate boilerplate and state logic, the system transitioned from initial concept to a deployed, functioning AI Clinical Decision Support Agent on Next.JS in about 6 hours. The full stack, ground up re-engineering with Ruby on Rails and Hotwire took another 48 hours.
