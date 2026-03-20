@@ -1,47 +1,50 @@
-# Aegis AI: An Architectural Stress-Test (Next.js vs. Rails 7)
+# 🛡️ Aegis AI: Clinical Decision Support (CDS) System Architecture
 
-### **The Mission**
-Aegis is a Clinical Decision Support (CDS) agent built for high-stakes ICU/ER environments. In clinical settings, **latency isn't just a UX metric—it's a clinical barrier.** To find the "Performance Ceiling" for AI-driven medical insights, I engineered the platform twice using two fundamentally different architectural philosophies. 
+### **Next.js | Ruby on Rails | LLMOps | FHIR R4 Integration**
 
-This repository serves as the **Technical Case Study** and the central hub for both implementations.
+Aegis AI is a dual-architecture benchmarking project designed to evaluate the performance, latency, and reliability of AI-driven Clinical Decision Support across different engineering patterns. Developed by an **Active ICU/ER Nurse** and **Veteran Special Forces Leader**, the platform prioritizes operational grounding over theoretical implementation.
 
----
-
-### **The Architecture Battle Card**
-
-| Metric | **Aegis: Next.js (Production)** | **Aegis on Rails (Benchmark)** |
-| :--- | :--- | :--- |
-| **Primary Stack** | TypeScript, Next.js 14, Tailwind | Ruby on Rails 7, Hotwire, Turbo |
-| **Deployment** | Vercel (Edge-Optimized) | Fly.io (Centralized Monolith) |
-| **Orchestration** | Serverless / Client-side Hydration | Sidekiq / Redis / SSR |
-| **The Verdict** | **Winner: Superior Streaming UX** | **Insight: High Logic Density** |
+**[🌐 Portfolio](https://www.giannisroussos.com)** | **[💻 GitHub Profile](https://github.com/iroussos25)**
 
 ---
 
-### **Phase 1: The Next.js / TypeScript Build**
-**[View Source Code](https://github.com/iroussos25/aegis_ai_cds)** | **[Live Demo](https://aegis-ai-cds.vercel.app)**
+## 🏗️ The Benchmarking Strategy
+This root repository serves as the coordination point for two distinct implementations of the Aegis reasoning engine. The objective is to compare **Edge-Latency (Next.js)** against **Stateful Persistence (Rails)** in a high-acuity clinical context.
 
-The initial build focused on **Developer Velocity** and **Reactive UI**. 
-* **The "Win":** Leveraging Vercel’s global edge network allowed for an incredibly low **Time to First Token (TTFT)**. Even with complex RAG chains, the "perceived speed" for the clinician was nearly instantaneous.
-* **The "Trade-off":** Managing state across serverless functions required meticulous coordination of the orchestration layer, though the ecosystem support for AI streaming is unparalleled.
+### 1. [Aegis-AI-CDS (Next.js 14)](https://github.com/iroussos25/aegis-ai-cds)
+* **Architectural Focus:** Edge-latency and frontend orchestration.
+* **Technical Driver:** Minimizes the "Time to First Token" (TTFT) by leveraging Vercel Edge Functions and a localized normalization layer.
+* **Best For:** Real-time bedside analysis and mobile-first clinical interfaces.
 
-### **Phase 2: The Rails 7 / Hotwire "Speed" Port**
-**[View Source Code](https://github.com/iroussos25/ai-clin-cds-rails)** | **[Live Demo](https://ai-clin-cds-rails.fly.dev)**
-
-I re-engineered the platform in Ruby on Rails to see if a monolithic approach could reduce the "Serverless Tax" and simplify the AI orchestration logic.
-* **The "Win":** Achieved a **60% reduction in JavaScript payload** and a cleaner "single source of truth" for medical logic.
-* **The "Friction":** Despite the backend efficiency, the centralized deployment created a "latency wall" for streaming responses compared to edge-delivery. The development experience (DX) also highlighted the importance of environment parity when working outside of a native Linux interface.
-
----
-
-### **The Verdict**
-While Rails provided a robust, "batteries-included" environment for complex logic, **Next.js remains the production standard for Aegis AI.** In a clinical context, the **Edge-Network Advantage**—where the AI response starts streaming the moment the clinician finishes their query—outweighs the theoretical benefits of monolithic density. **I prioritize the clinician's time over architectural tradition.**
+### 2. [Aegis-on-Rails (Ruby on Rails 7)](https://github.com/iroussos25/aegis-on-rails)
+* **Architectural Focus:** Data persistence and background synchronization.
+* **Technical Driver:** Utilizes a PostgreSQL backend and Sidekiq workers to manage longitudinal FHIR data syncing and a persistent audit trail.
+* **Best For:** Comprehensive patient history tracking and retrospective clinical auditing.
 
 ---
 
-### **Technical Deep Dives**
-* [RAG Grounding with Supabase & pgvector](https://github.com/iroussos25/aegis-ai-cds)
-* [Optimizing LLM Streaming for Clinical Environments](https://github.com/iroussos25/aegis-ai-cds)
+## 🎁 Recruiter & Interview Kit
+Designed for rapid evaluation of full-stack AI orchestration:
+* **One-Click Demos:** Pre-loaded clinical scenarios (Sepsis, CHF, Delirium) across both platforms.
+* **Guided Walkthroughs:** Step-by-step overlays to demonstrate how AI maps raw FHIR data into clinical insights.
+* **LLMOps Dashboard:** Real-time visibility into inference costs ($0.0000078 avg), TTFT, and semantic consistency metrics.
+
+## ⚙️ Core Technical Pillars
+* **Clinical Reasoning Engine:** Codifying ICU/ER nursing logic into multi-tier model fallback chains (Gemini 2.5 Flash, Gemini Flash Lite, and Gemma 3).
+* **FHIR Normalization:** Engineering proprietary mapping layers to transform nested FHIR R4 JSON into token-efficient, high-signal schemas.
+* **Explainable AI (XAI):** Implementing direct source attribution logic that maps AI claims back to specific `ResourceID` points in the patient record.
+* **System Resilience:** Multi-tier rate limiting via Upstash Redis and strict Zod schema validation across all API boundaries.
 
 ---
-*Created by Giannis Roussos | Full-Stack Builder | [Portfolio](https://www.giannisroussos.com)*
+
+## ⚖️ Proprietary Notice & Licensing
+**License: All Rights Reserved**
+
+The architectural frameworks, UI patterns, and benchmarking metrics provided in these repositories are open for professional technical review. However, the core **Clinical Reasoning Engine prompts**, **FHIR Mapping weights**, and **Proprietary Logic Chains** are protected Intellectual Property.
+
+*For inquiries regarding full-stack engineering, AI orchestration, or system licensing, contact: [grcodes@outlook.com](mailto:grcodes@outlook.com).*
+
+---
+
+## ⚡ Engineering Note
+Aegis was architected using a high-velocity AI-orchestration workflow. By leveraging Claude 3.5 Opus to accelerate boilerplate and state logic, the system transitioned from initial concept to a deployed, multi-platform benchmark in under 6 hours.
