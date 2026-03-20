@@ -4,3 +4,4 @@
 [submodule "ai-clin-cds-rails"]
 	path = ai-clin-cds-rails
 	url = https://github.com/iroussos25/ai-clin-cds-rails
+	branch = main
