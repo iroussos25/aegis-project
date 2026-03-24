@@ -1,50 +1,92 @@
-# 🛡️ Aegis AI: Clinical Decision Support (CDS) System Architecture
+# Aegis AI: Clinical Decision Support
 
-### **Next.js | Ruby on Rails | LLMOps | FHIR R4 Integration**
+A clinical AI decision support system built twice - once in Next.js 14 and once in Ruby on Rails 7 - to compare how different architectures handle the same real-time medical reasoning workload.
 
-Aegis AI is a dual-architecture benchmarking project designed to evaluate the performance, latency, and reliability of AI-driven Clinical Decision Support across different engineering patterns. Developed by an **Active ICU/ER Nurse** and **Veteran Special Forces Leader**, the platform prioritizes operational grounding over theoretical implementation.
-
-**[🌐 Portfolio](https://www.giannisroussos.com)** | **[💻 GitHub Profile](https://github.com/iroussos25)**
+**[Next.js Demo](https://aegis-ai-cds.vercel.app/) | [Rails Demo](https://ai-clin-cds-rails.fly.dev/) | [Portfolio Case Study](https://giannisroussos.com/projects/aegis)**
 
 ---
 
-## 🏗️ The Benchmarking Strategy
-This root repository serves as the coordination point for two distinct implementations of the Aegis reasoning engine. The objective is to compare **Edge-Latency (Next.js)** against **Stateful Persistence (Rails)** in a high-acuity clinical context.
+## What it does
 
-### 1. [Aegis-AI-CDS (Next.js 14)](https://github.com/iroussos25/aegis_ai_cds)
-* **Architectural Focus:** Edge-latency and frontend orchestration.
-* **Technical Driver:** Minimizes the "Time to First Token" (TTFT) by leveraging Vercel Edge Functions and a localized normalization layer.
-* **Best For:** Real-time bedside analysis and mobile-first clinical interfaces.
+Upload a clinical document (or use a pre-loaded scenario like sepsis or CHF), and the system:
 
-### 2. [Aegis-on-Rails (Ruby on Rails 7)](https://github.com/iroussos25/ai-clin-cds-rails)
-* **Architectural Focus:** Data persistence and background synchronization.
-* **Technical Driver:** Utilizes a PostgreSQL backend and Sidekiq workers to manage longitudinal FHIR data syncing and a persistent audit trail.
-* **Best For:** Comprehensive patient history tracking and retrospective clinical auditing.
+1. Parses the document and extracts clinical context
+2. Queries a RAG pipeline (Supabase pgvector) for relevant prior knowledge
+3. Pulls live evidence from PubMed via the NCBI eUtils API
+4. Sends the enriched context through a multi-model AI pipeline for clinical synthesis
+5. Returns a structured analysis with source attribution and evidence citations
 
----
+## Why two versions
 
-## 🎁 Recruiter & Interview Kit
-Designed for rapid evaluation of full-stack AI orchestration:
-* **One-Click Demos:** Pre-loaded clinical scenarios (Sepsis, CHF, Delirium) across both platforms.
-* **Guided Walkthroughs:** Step-by-step overlays to demonstrate how AI maps raw FHIR data into clinical insights.
-* **LLMOps Dashboard:** Real-time visibility into inference costs ($0.0000078 avg), TTFT, and semantic consistency metrics.
+I built the Next.js version first to optimize for edge latency and streaming (sub-2s time-to-first-token). Then I rebuilt the entire system in Ruby on Rails over a weekend to test whether a monolithic, stateful architecture would perform better for persistent clinical audit trails and background processing.
 
-## ⚙️ Core Technical Pillars
-* **Clinical Reasoning Engine:** Codifying ICU/ER nursing logic into multi-tier model fallback chains (Gemini 2.5 Flash, Gemini Flash Lite, and Gemma 3).
-* **FHIR Normalization:** Engineering proprietary mapping layers to transform nested FHIR R4 JSON into token-efficient, high-signal schemas.
-* **Explainable AI (XAI):** Implementing direct source attribution logic that maps AI claims back to specific `ResourceID` points in the patient record.
-* **System Resilience:** Multi-tier rate limiting via Upstash Redis and strict Zod schema validation across all API boundaries.
+**Results:**
+- Next.js: Faster TTFT (edge streaming), lighter JS payload after Rails rewrite comparison
+- Rails: 60% faster total execution (5.6s vs 14.7s), 85% reduction in client-side JavaScript, persistent audit trail via PostgreSQL + Sidekiq
 
----
+## Architecture
 
-## ⚖️ Proprietary Notice & Licensing
-**License: All Rights Reserved**
+### Next.js version
+- Next.js 14 (App Router), TypeScript, React 19
+- Vercel AI SDK for streaming responses
+- Supabase pgvector for RAG (768-dim embeddings via gemini-embedding-001)
+- Zod schema validation on all API boundaries
+- Upstash Redis rate limiting (sliding window + token bucket fallback)
+- Deployed on Vercel
 
-The architectural frameworks, UI patterns, and benchmarking metrics provided in these repositories are open for professional technical review. However, the core **Clinical Reasoning Engine prompts**, **FHIR Mapping weights**, and **Proprietary Logic Chains** are protected Intellectual Property.
+### Rails version
+- Ruby on Rails 7 with Hotwire (Turbo + Stimulus)
+- PostgreSQL with pgvector extension
+- Sidekiq + Redis for background job processing
+- ActiveRecord for persistent audit logging
+- Deployed on Fly.io
 
-*For inquiries regarding full-stack engineering, AI orchestration, or system licensing, contact: [grcodes@outlook.com](mailto:grcodes@outlook.com).*
+### Shared
+- Multi-model fallback chain: Gemini 2.5 Flash > Flash Lite > Gemma 3 4B > Gemma 1B
+- Automatic 429/503 error recovery with cascade to next model
+- PubMed literature grounding via NCBI eUtils REST API
+- FHIR R4 data explorer (HAPI FHIR public server)
+- Structured audit logging for every AI request
 
----
+## Demo mode
 
-## ⚡ Engineering Note
-Aegis was architected using a high-velocity AI-orchestration workflow. By leveraging Claude 3.5 Opus to accelerate boilerplate and state logic, the system transitioned from initial concept to a deployed, functioning AI Clinical Decision Support Agent on Next.JS in about 6 hours. The full stack, ground up re-engineering with Ruby on Rails and Hotwire took another 48 hours.
+The app ships with pre-loaded clinical scenarios (sepsis, CHF, delirium) 
+so you can see the full pipeline in action without uploading your own 
+documents. A guided walkthrough overlay explains each step of the 
+reasoning process, and the LLMOps dashboard shows real-time inference 
+cost, TTFT, and model selection for every request.
+
+## Key technical decisions
+
+- **Model fallback as load balancing:** Google's free tier tracks rate limits per model independently. The fallback chain is not just a safety net - it effectively distributes load across multiple models.
+- **RAG chunking strategy:** 1,200 character chunks with 220-character overlap, tuned for clinical note paragraph boundaries.
+- **Cosine similarity fallback:** If the Supabase RPC for vector search fails, the app computes cosine similarity in-app rather than returning no results.
+
+## Run locally
+
+### Next.js
+```bash
+cd aegis_ai_cds
+cp .env.example .env.local
+# Add your Google AI API key and Supabase credentials
+npm install
+npm run dev
+```
+
+### Rails
+```bash
+cd ai-clin-cds-rails
+cp .env.example .env
+# Add your Google AI API key and database credentials
+bundle install
+rails db:setup
+bin/dev
+```
+
+## Tech stack
+
+Next.js 14, Ruby on Rails 7, TypeScript, Ruby, React 19, Hotwire (Turbo/Stimulus), PostgreSQL, Supabase pgvector, Redis, Sidekiq, Vercel AI SDK, Google Gemini/Gemma, Zod, Upstash, PubMed API, HL7 FHIR R4, Vitest, GitHub Actions, Vercel, Fly.io
+
+## Contact
+
+Giannis Roussos - [giannisroussos.com](https://giannisroussos.com) | [LinkedIn](https://linkedin.com/in/giannisr) | grcodes@outlook.com
